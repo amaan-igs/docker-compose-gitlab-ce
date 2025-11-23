@@ -24,6 +24,39 @@ make
 docker compose up -d
 ```
 
+## Register GitLab Runner
+
+The compose file includes a GitLab Runner container, but it needs to be registered with your GitLab instance.
+
+### Register the included runner
+
+1. Go to `https://<yourdomain>/admin/runners` in your GitLab instance
+2. Click on the three-dot menu next to the "New instance runner" button
+3. Copy the registration token
+4. Run the following command (replace `YOUR_TOKEN` with the copied token):
+
+```bash
+docker exec -it gitlab_runner gitlab-runner register \
+  --non-interactive \
+  --url "http://gitlab" \
+  --registration-token "YOUR_TOKEN" \
+  --executor "docker" \
+  --docker-image "alpine:latest" \
+  --description "docker-runner" \
+  --tag-list "docker,linux" \
+  --run-untagged="true" \
+  --locked="false" \
+  --docker-network-mode "docker-compose-gitlab-ce_default"
+```
+
+### Register external runners
+
+For runners outside of this compose setup:
+
+1. Go to `https://<yourdomain>/admin/runners`
+2. Click on the three-dot menu next to "New instance runner"
+3. Select "Show runner installation and registration instructions"
+4. Follow the instructions for your platform
 
 ## Check postgres bundled version
 
