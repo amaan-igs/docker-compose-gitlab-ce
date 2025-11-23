@@ -12,7 +12,6 @@ Working `docker-compose.yml` for official [gitlab-ce](https://hub.docker.com/r/g
 
 Made to work behind a separate automated [nginx-proxy](https://github.com/jwilder/nginx-proxy) with SSL support via letsencrypt.
 
-
 ## Quickstart
 
 - You can quickly start your compose gitlab instance (requires a working automated nginx_proxy compose instance)
@@ -76,4 +75,3 @@ docker run --rm -it gitlab/gitlab-ce:${GITLAB_CE_VERSION} postgres --version
 - [GitLab Docker images](https://docs.gitlab.com/omnibus/docker/)
 - [GitLab CI Docker images](https://docs.gitlab.com/ce/ci/docker/using_docker_images.html)
 - [Using a non-bundled web-server](https://docs.gitlab.com/omnibus/settings/nginx.html#using-a-non-bundled-web-server)
-
