@@ -10,8 +10,9 @@
 ##! URL on which GitLab will be reachable.
 ##! For more details on configuring external_url see:
 ##! https://docs.gitlab.com/omnibus/settings/configuration.html#configuring-the-external-url-for-gitlab
-external_url 'https://${GITLAB_HOST}'
-registry_external_url 'https://${REGISTRY_HOST}'
+##! Using HTTP here since HTTPS termination happens at AWS ALB
+external_url 'http://${GITLAB_HOST}'
+registry_external_url 'http://${REGISTRY_HOST}'
 pages_external_url 'http://${PAGES_HOST}'
  
 ### Trusted proxies
@@ -24,6 +25,11 @@ gitlab_rails['trusted_proxies'] = ['${GITLAB_TRUSTED_PROXY}']
 ### GitLab database settings
 ###! Docs: https://docs.gitlab.com/omnibus/settings/database.html
 ###! **Only needed if you use an external database.**
+gitlab_rails['db_adapter'] = "postgresql"
+gitlab_rails['db_encoding'] = "unicode"
+gitlab_rails['db_database'] = "${POSTGRES_DB}"
+gitlab_rails['db_username'] = "${POSTGRES_USER}"
+gitlab_rails['db_password'] = "${POSTGRES_PASSWORD}"
 gitlab_rails['db_host'] = "postgres"
 
 ### GitLab Redis settings
@@ -43,7 +49,7 @@ gitlab_rails['smtp_password'] = "${GITLAB_SMTP_PASSWORD}"
 gitlab_rails['smtp_domain'] = "${GITLAB_SMTP_DOMAIN}"
 gitlab_rails['smtp_authentication'] = "login"
 gitlab_rails['smtp_enable_starttls_auto'] = true
-gitlab_rails['smtp_tls'] = true
+# gitlab_rails['smtp_tls'] = true  # Commented: mutually exclusive with smtp_enable_starttls_auto
 
 gitlab_rails['gitlab_email_from'] = 'gitlab@${GITLAB_SMTP_DOMAIN}'
 gitlab_rails['gitlab_email_reply_to'] = 'noreply@${GITLAB_SMTP_DOMAIN}'
