@@ -20,6 +20,7 @@ Made to work behind a separate automated [nginx-proxy](https://github.com/jwilde
 ```bash
 git clone https://github.com/amaan-igs/docker-compose-gitlab-ce.git gitlab; cd $_
 cp .env.default .env; nano .env
+sudo rm volumes/postgres/.gitkeep  # Required: Remove .gitkeep to allow PostgreSQL initialization
 make
 docker compose up -d
 ```
