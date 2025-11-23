@@ -15,7 +15,7 @@ external_url 'http://${GITLAB_HOST}'
 registry_external_url 'http://${REGISTRY_HOST}'
 pages_external_url 'http://${PAGES_HOST}'
  
-gitlab_rails['gitlab_shell_ssh_port']= ${GITLAB_SSH_PORT}
+gitlab_rails['gitlab_shell_ssh_port'] = ${GITLAB_SSH_PORT}
 
 ### Trusted proxies
 ###! Customize if you have GitLab behind a reverse proxy which is running on a
